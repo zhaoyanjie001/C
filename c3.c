@@ -145,7 +145,7 @@ int main(int argc , char **argv)
 		tail_insert(header,create_node(i));
 	}
 	Print_node(header);
-	detele_list_node(header,5);
+	//detele_list_node(header,5);
 	putchar('\n');
 	Print_node(header);
 	putchar('\n');
