@@ -35,6 +35,7 @@ void tail_insert(list *pH , list *new)
 void top_insert(list *pH , list *new){
     list *p =pH;
     new ->next =p->next;
+	p->next = new;
 }
 void Print_node(list *pH)
 {
@@ -81,40 +82,31 @@ int delete_list_node(list * pH , int data){
 
 void trave_list(list * pH)
 {
-	//保存第一个节点的位置 
 	list *p = pH->next;
 	list *pBack;
 	int i = 0 ;
 	if(p->next == NULL || p == NULL)
 		return ;
 		
-	while(NULL != p->next) //遍历链表 
-	{
-		//保存第一个节点的下一个节点 
+	while(NULL != p->next)
+	{ 
 		pBack = p->next ; 
-		//找到第一个有效节点,其实就是头指针的下一个节点 
 		if(p == pH->next) 
 		{
-			//第一个有效节点就是最后一个节点，所以要指向NULL 
 			p->next = NULL ; 
 		} 
 		else
 		{
-			/*
-			new->next = p->next ;
-			p->next = new ;
-			*/
-			p->next = pH->next ; //尾部连接 
+			p->next = pH->next ; 
 		}
-		pH->next = p ; //头部连接 
-		p = pBack ; //走下一个节点 
+		pH->next = p ;
+		p = pBack ;
 	}
-	top_insert(pH,p); //插入最后一个节点 
+	top_insert(pH,p);
 }
 
 int main(int argc , char **argv) 
 {
-	//创建第一个节点 
 	int i ;
 	list *header = create_node(0); 
 	for(i = 1 ; i < 10 ; i++)
@@ -122,7 +114,8 @@ int main(int argc , char **argv)
 		tail_insert(header,create_node(i));
 	}
 	Print_node(header);
-	//delete_list_node(header,5);
+	
+	delete_list_node(header,5);
 	Print_node(header);
 	putchar('\n');
 	printf("-------\n");
