@@ -26,7 +26,7 @@ int main() {
         printTree(root, 0);
         printf("\n");
     }
-    // 输出最终的B树结构
+
     printf("\nFinal B-tree structure:\n");
     printTree(root, 0);
     return 0;
