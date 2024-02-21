@@ -7,7 +7,7 @@
 #define PORT 8080
 #define BUFFER_SIZE 1024
 
-int main() {
+int main(int argc, char *argv[]) {
     int client_socket;
     struct sockaddr_in server_addr;
     char buffer[BUFFER_SIZE] = {0};
@@ -35,7 +35,8 @@ int main() {
     }
 
     // 发送消息给服务器
-    const char *message = "Hello from client!";
+    //const char *message = "Hello from client!";
+    const char *message = argv[1];
     send(client_socket, message, strlen(message), 0);
     printf("Message sent to server: %s\n", message);
 

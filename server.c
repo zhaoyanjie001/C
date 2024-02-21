@@ -37,20 +37,25 @@ int main() {
     }
 
     printf("Server listening on port %d...\n", PORT);
+    while(1) {
+        // 接受客户端连接
+        if ((new_socket = accept(server_socket, (struct sockaddr*)&client_addr, &addr_size)) < 0) {
+            perror("Accept failed");
+            exit(EXIT_FAILURE);
+        }
 
-    // 接受客户端连接
-    if ((new_socket = accept(server_socket, (struct sockaddr*)&client_addr, &addr_size)) < 0) {
-        perror("Accept failed");
-        exit(EXIT_FAILURE);
+        // 从客户端接收数据
+        ssize_t recv_size = recv(new_socket, buffer, BUFFER_SIZE, 0);
+        printf("Received message from client: %s\n", buffer);
+
+        // 发送响应给客户端
+        const char *response = buffer;
+        send(new_socket, response, strlen(response), 0);
+        if(strlen(buffer) == 1 && buffer[1] == 'q' ) {
+            break;
+        }
     }
-
-    // 从客户端接收数据
-    ssize_t recv_size = recv(new_socket, buffer, BUFFER_SIZE, 0);
-    printf("Received message from client: %s\n", buffer);
-
-    // 发送响应给客户端
-    const char *response = "Hello from server!";
-    send(new_socket, response, strlen(response), 0);
+    
 
     // 关闭套接字
     close(new_socket);
